@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+    <title>Explanation · Ajwad Masood</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    <link rel="stylesheet" href="https://ajwadmasood.github.io/ajwadcoa/style.main.min.70a829cbb17a0113b633175fe446bf0d75034a2e6783eb94f9800fbb843a857b.css" />
+
+</head>
+<body class=" post-template ">
+
+    <div class="site-wrapper">
+
+<header class="site-header"><div class="outer site-nav-main">
+    <div class="inner"><nav class="site-nav">
+    <div class="site-nav-left">
+        
+            <a class="site-nav-logo" href="https://ajwadmasood.github.io/ajwadcoa/">Ajwad Masood</a>
+        
+        
+        <div class="site-nav-content">
+            <ul class="nav" role="menu">
+                
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+</div>
+</div></header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post  no-image ">
+
+            <header class="post-full-header">
+
+                
+
+                <h1 class="post-full-title">Explanation</h1>
+
+                
+                    <p class="post-full-custom-excerpt">Explanation</p>
+                
+
+                <div class="post-full-byline">
+                    <section class="post-full-byline-content">
+
+                        
+
+                        <section class="post-full-byline-meta">
+                            
+                            <div class="byline-meta-content">
+                                <time class="byline-meta-date" datetime="2021-54-04">20 April 2021</time>
+                                <span class="byline-reading-time"><span class="bull">&bull;</span> 2 min read</span>
+                            </div>
+                        </section>
+
+                    </section>
+
+
+                </div>
+            </header>
+
+            
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <h1 id="tools">Tools</h1>
+<ul>
+<li>VS Code</li>
+<li>Docker</li>
+<li>Qemu</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>I created an x86 compatible operating system which is multiboot2 compliant. The hardware portion is written using C programming and assembly programming language.</p>
+<h1 id="development">Development</h1>
+<p>I installed Qemu to emulate the operating system and docker to have a reproducable build environment. Then, I installed nasm which is used to compile the assembly code and grub package to form the final iso file. For this purpose, I created a folder by the name buildenv and created a Dockerfile inside it and copied the following code inside it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">FROM randomdude/gcc-cross-x86_64-elf
+
+RUN apt-get update 
+RUN apt-get upgrade -y
+RUN apt-get install -y nasm
+RUN apt-get install -y xorriso
+RUN apt-get install -y grub-pc-bin
+RUN apt-get install -y grub-common
+
+VOLUME /root/env
+WORKDIR /root/env</code></pre></div>
+<p>Run the following command in the terminal to build a docker image.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">docker build buildenv -t myos-buildenv</code></pre></div>
+<p>The image took some time to build.
+<br>
+<br>
+Now opened an instance of this image which is known as a container by running one of the following commands based on the computer&rsquo;s operating system.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Windows: docker run --rm -it -v &#34;%cd%&#34;:/root/env myos-buildenv
+Linux or MacOS: docker run --rm -it -v $pwd:/root/env myos-buildenv</code></pre></div>
+<p>Now entered a virtual linux machine.</p>
+<h1 id="code">Code</h1>
+<p>After successfully entering the virtual linux machine with access to all the required tools, we entered the operating system.
+<br>
+<br>
+Then created the folders in the following way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"> &gt;src
+    &gt; impl
+      &gt; x86_64
+        &gt; boot
+           - header.asm
+           - main.asm
+           - main64.asm
+        - print.c
+      &gt; kernel
+        - main.c
+    &gt; intf
+      - print.h
+
+ &gt;targets 
+    &gt; x86_64
+       - linker.ld
+       &gt; iso
+           &gt; boot
+              &gt; grub 
+            </code></pre></div>
+
+                </div>
+            </section>
+
+        </article>
+
+    </div>
+</main>
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed"><article class="post-card post
+ no-image
+ ">
+
+        
+    
+        <div class="post-card-content">
+    
+            <a class="post-card-content-link" href="https://ajwadmasood.github.io/ajwadcoa/dir/b/">
+    
+                <header class="post-card-header">
+                    
+
+                    <h2 class="post-card-title">Output</h2>
+                </header>
+    
+                <section class="post-card-excerpt">
+                    <p>  </p>
+                </section>
+    
+            </a>
+
+            <footer class="post-card-meta">
+                    <ul class="author-list">
+                        <li class="author-list-item">
+                            <div class="author-name-tooltip"></div>
+                            <a href="#" class="static-avatar author-profile-image"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z" fill="#FFF"/></g></svg></a>
+                        </li>
+                    </ul>
+                    <div class="post-card-byline-content">
+                        <span></span>
+                        <span class="post-card-byline-date"><time datetime="2021-44-04">20 April 2021</time>
+                            <span class="bull">&bull;</span> 0 min read</span>
+                    </div>
+                </footer>
+    
+        </div>
+
+</article>
+    
+
+            
+        </div>
+    </div>
+</aside>
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://ajwadmasood.github.io/ajwadcoa/">Ajwad Masood</a> &copy; 2021</section>
+                <nav class="site-footer-nav">
+                    <a href="https://ajwadmasood.github.io/ajwadcoa/">Latest Posts</a>
+                    
+                    
+                    
+                    <a href="https://jonathanjanssens.com" target="_blank" rel="noopener" style="opacity: 0.5;">Hugo Casper3 by Jonathan Janssens</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
